@@ -34,3 +34,14 @@ if st.button("Predict"):
         'ExerciseAngina_' + exercise_angina: 1,
         'ST_Slope_' + st_slope: 1
     }
+    input_df = pd.DataFrame([raw_input])
+    for col in expected_columns:
+        if col not in input_df.columns:
+            input_df[col] = 0
+    input_df = input_df[expected_columns]
+    scaled_input = scaler.transform(input_df)
+    prediction = model.predict(scaled_input)[0]
+    if prediction == 1:
+        st.error("⚠️ High Risk of Heart Disease")
+    else:
+        st.success("✅ Low Risk of Heart Disease")
