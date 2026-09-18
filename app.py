@@ -21,7 +21,7 @@ oldpeak= st.number_input("Oldpeak (ST depression induced by exercise)", 0.0, 6.0
 st_slope= st.selectbox("Slope of the peak exercise ST segment", ["Upsloping", "Flat", "Downsloping"])
 
 if st.button("Predict"):
-     raw_input = {
+    raw_input = {
         'Age': age,
         'RestingBP': resting_bp,
         'Cholesterol': cholesterol,
@@ -31,10 +31,10 @@ if st.button("Predict"):
         'Sex_' + sex: 1,
         'ChestPainType_' + chest_pain: 1,
         'RestingECG_' + resting_ecg: 1,
-        'ExerciseAngina_' + exercise_angina: 1,
-        'ST_Slope_' + st_slope: 1
+        'ExerciseAngina_' + str(exercise_angina): 1,
+        'ST_Slope_' + st_slope: 1,
     }
-    input_df = pd.DataFrame([raw_input])
+    input_df = pd.DataFrame(raw_input, index=[0])
     for col in expected_columns:
         if col not in input_df.columns:
             input_df[col] = 0
